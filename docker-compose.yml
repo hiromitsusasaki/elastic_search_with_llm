@@ -1,0 +1,53 @@
+version: '3'
+services:
+  es:
+    build: ./docker/es
+    container_name: es_sample
+    environment:
+      - cluster.name=rails-sample-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es_sample_data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.5.4
+    environment:
+      SERVER_NAME: localhost:5601
+      ELASTICSEARCH_URL: http://es_sample:9200
+    ports:
+      - 5601:5601
+    depends_on:
+      - es
+  db:
+    image: mysql:8.0.29
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./tmp/db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+  web:
+    build: .
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - es
+    environment:
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=elastic_search_with_llm
+      - DATABASE_HOST=db
+    tty: true
+    stdin_open: true
+
+volumes:
+  es_sample_data:
+    driver: local
