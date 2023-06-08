@@ -2,7 +2,6 @@ version: '3'
 services:
   es:
     build: ./docker/es
-    container_name: es_sample
     environment:
       - cluster.name=rails-sample-cluster
       - bootstrap.memory_lock=true
@@ -16,14 +15,12 @@ services:
     ports:
       - 9200:9200
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.5.4
-    environment:
-      SERVER_NAME: localhost:5601
-      ELASTICSEARCH_URL: http://es_sample:9200
+    image: docker.elastic.co/kibana/kibana:7.16.2
+    container_name: kibana
     ports:
-      - 5601:5601
-    depends_on:
-      - es
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es:9200
   db:
     image: mysql:8.0.29
     command: --default-authentication-plugin=mysql_native_password
