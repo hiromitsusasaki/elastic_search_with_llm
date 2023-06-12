@@ -5,7 +5,7 @@ require 'json'
 api_key = ENV['RAINDROP_API_KEY']
 
 # ユーザーのブックマークデータを取得するエンドポイント
-endpoint = 'https://api.raindrop.io/rest/v1/raindrops/35148982'
+endpoint = ENV['RAINDROP_RETRIEVE_RAINDROPS_ENDPOINT']
 
 # APIリクエストを作成
 uri = URI(endpoint)
@@ -20,6 +20,8 @@ end
 
 # レスポンスをJSONとして解析
 data = JSON.parse(response.body)
+
+puts "count: #{data['count']}"
 
 # ブックマークデータを表示
 data['items'].each do |bookmark|

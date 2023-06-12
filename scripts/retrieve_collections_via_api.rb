@@ -5,7 +5,7 @@ require 'json'
 api_key = ENV['RAINDROP_API_KEY']
 
 # ユーザーのブックマークデータを取得するエンドポイント
-endpoint = 'https://api.raindrop.io/rest/v1/collections'
+endpoint = ENV['RAINDROP_RETRIEVE_COLLECTIONS_ENDPOINT']
 
 # APIリクエストを作成
 uri = URI(endpoint)
