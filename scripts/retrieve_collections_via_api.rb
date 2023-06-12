@@ -2,7 +2,7 @@ require 'net/http'
 require 'json'
 
 # Raindrop.io APIキー
-api_key = '46481302-18da-49b5-8fb8-c67eeb2c5c1e'
+api_key = ENV['RAINDROP_API_KEY']
 
 # ユーザーのブックマークデータを取得するエンドポイント
 endpoint = 'https://api.raindrop.io/rest/v1/collections'

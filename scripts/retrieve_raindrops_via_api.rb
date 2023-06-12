@@ -2,14 +2,14 @@ require 'net/http'
 require 'json'
 
 # Raindrop.io APIキー
-api_key = '46481302-18da-49b5-8fb8-c67eeb2c5c1e'
+api_key = ENV['RAINDROP_API_KEY']
 
 # ユーザーのブックマークデータを取得するエンドポイント
 endpoint = 'https://api.raindrop.io/rest/v1/raindrops/35148982'
 
 # APIリクエストを作成
 uri = URI(endpoint)
-params = { 'perpage' => 10 }  # 取得するブックマークの数を指定（最大値: 1000）
+params = { perpage: 50, page: 0 }
 uri.query = URI.encode_www_form(params)
 headers = { 'Authorization' => "Bearer #{api_key}" }
 

@@ -47,6 +47,8 @@ services:
       - DATABASE_PASSWORD=password
       - DATABASE_NAME=elastic_search_with_llm
       - DATABASE_HOST=db
+    env_file:
+      - .env
     tty: true
     stdin_open: true
 
