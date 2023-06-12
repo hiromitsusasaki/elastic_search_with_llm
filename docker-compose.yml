@@ -4,7 +4,7 @@ services:
     container_name: es
     build: ./docker/es
     environment:
-      - cluster.name=rails-sample-cluster
+      - cluster.name=elastic_search_with_llm-cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - discovery.type=single-node
