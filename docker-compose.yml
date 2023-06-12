@@ -1,27 +1,31 @@
 version: '3'
 services:
   es:
+    container_name: es
     build: ./docker/es
     environment:
       - cluster.name=rails-sample-cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
+    - ./docker/es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - es_sample_data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.16.2
     container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.16.2
     ports:
       - "5601:5601"
     environment:
       - ELASTICSEARCH_HOSTS=http://es:9200
   db:
+    container_name: db
     image: mysql:8.0.29
     command: --default-authentication-plugin=mysql_native_password
     volumes:
@@ -29,6 +33,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
   web:
+    container_name: web
     build: .
     volumes:
       - .:/myapp
