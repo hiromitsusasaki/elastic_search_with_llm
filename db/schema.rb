@@ -12,10 +12,10 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_06_12_125140) do
   create_table "bookmarks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title"
+    t.text "title"
     t.text "description"
-    t.string "url"
-    t.integer "indentifier_in_source"
+    t.text "url"
+    t.integer "identifier_in_source"
     t.datetime "created_in_source_at"
     t.datetime "updated_in_source_at"
     t.datetime "created_at", null: false
