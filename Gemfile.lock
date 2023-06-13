@@ -69,6 +69,7 @@ GEM
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
+    ast (2.4.2)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -125,6 +126,9 @@ GEM
     globalid (1.1.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
+    hpricot (0.8.6)
+    html2slim (0.2.0)
+      hpricot
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.6)
@@ -136,6 +140,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    json (2.6.1)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -164,6 +169,12 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.2-aarch64-linux)
       racc (~> 1.4)
+    nokogiri (1.15.2-arm64-darwin)
+      racc (~> 1.4)
+    parallel (1.23.0)
+    parser (3.2.2.3)
+      ast (~> 2.4.1)
+      racc
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.7.0)
@@ -197,9 +208,12 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0)
       zeitwerk (~> 2.5)
+    rainbow (3.1.1)
     rake (13.0.6)
+    regexp_parser (2.8.1)
     reline (0.3.5)
       io-console (~> 0.5)
+    rexml (3.2.5)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.3)
@@ -217,7 +231,27 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.0)
+    rubocop (1.52.1)
+      json (~> 2.3)
+      parallel (~> 1.10)
+      parser (>= 3.2.2.3)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.28.0, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.29.0)
+      parser (>= 3.2.1.0)
+    ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
+    slim (5.1.1)
+      temple (~> 0.10.0)
+      tilt (>= 2.1.0)
+    slim-rails (3.6.2)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+      slim (>= 3.0, < 6.0, != 5.0.0)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -229,7 +263,11 @@ GEM
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.29-aarch64-linux)
       railties (>= 6.0.0)
+    tailwindcss-rails (2.0.29-arm64-darwin)
+      railties (>= 6.0.0)
+    temple (0.10.2)
     thor (1.2.2)
+    tilt (2.2.0)
     timeout (0.3.2)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
@@ -237,6 +275,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    unicode-display_width (2.4.2)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -249,6 +288,7 @@ GEM
 
 PLATFORMS
   aarch64-linux
+  arm64-darwin-22
 
 DEPENDENCIES
   annotate
@@ -257,12 +297,15 @@ DEPENDENCIES
   elasticsearch-model
   elasticsearch-rails
   factory_bot_rails
+  html2slim
   importmap-rails
   jbuilder
   mysql2 (~> 0.5)
   puma (~> 5.0)
   rails (~> 7.0.5)
   rspec-rails
+  rubocop
+  slim-rails
   sprockets-rails
   stimulus-rails
   tailwindcss-rails
