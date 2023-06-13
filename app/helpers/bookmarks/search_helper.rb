@@ -1,0 +1,2 @@
+module Bookmarks::SearchHelper
+end

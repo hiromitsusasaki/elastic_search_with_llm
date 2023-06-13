@@ -9,13 +9,13 @@ module BookmarkSearchable
     settings do
       mappings dynamic: 'false' do
         indexes :id, type: 'integer'
-        indexes :title, type:'text', analyzer: 'kuromoji'
-        indexes :description, type:'text', analyzer: 'kuromoji'
-        indexes :url, type:'text'
-        indexes :created_in_source_at, type:'date'
-        indexes :updated_in_source_at, type:'date'
-        indexes :created_at, type:'date'
-        indexes :updated_at, type:'date'
+        indexes :title, type: 'text', analyzer: 'kuromoji'
+        indexes :description, type: 'text', analyzer: 'kuromoji'
+        indexes :url, type: 'text', analyzer: 'kuromoji'
+        indexes :created_in_source_at, type: 'date'
+        indexes :updated_in_source_at, type: 'date'
+        indexes :created_at, type: 'date'
+        indexes :updated_at, type: 'date'
       end
     end
 
@@ -29,12 +29,29 @@ module BookmarkSearchable
   class_methods do
     def create_index!
       client = __elasticsearch__.client
-      client.indices.delete index: self.index_name rescue nil
-      client.indices.create(index: self.index_name,
+      begin
+        client.indices.delete index: index_name
+      rescue StandardError
+        nil
+      end
+      client.indices.create(index: index_name,
                             body: {
-                                settings: self.settings.to_hash,
-                                mappings: self.mappings.to_hash
+                              settings: settings.to_hash,
+                              mappings: mappings.to_hash
                             })
+    end
+
+    def es_search(query)
+      __elasticsearch__.search({
+                                 query: {
+                                   multi_match: {
+                                     fields: %w[title description url],
+                                     type: 'cross_fields',
+                                     query:,
+                                     operator: 'and'
+                                   }
+                                 }
+                               })
     end
   end
 end

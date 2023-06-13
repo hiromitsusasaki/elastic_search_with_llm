@@ -1,0 +1,22 @@
+div class="container mx-auto px-4 py-8"
+  h1 class="text-2xl font-semibold mb-4" Search Bookmarks
+
+  form action="/bookmarks/search" method="get" class="mb-4"
+    div class="flex items-center"
+      label for="query" class="mr-2" Search:
+      input type="text" name="query" id="query" class="border rounded px-2 py-1" value=@query
+      button type="submit" class="bg-blue-500 text-white px-4 py-1 rounded ms-1" Search
+
+  table class="w-full border table-fixed"
+    thead
+      tr
+        th class="bg-gray-100 border px-4 py-2" Title
+        th class="bg-gray-100 border px-4 py-2" Description
+        th class="bg-gray-100 border px-4 py-2" URL
+
+    tbody
+      - @bookmarks.each do |bookmark|
+        tr
+          td class="border px-4 py-2" = bookmark.title
+          td class="border px-4 py-2" = bookmark.description
+          td class="border px-4 py-2" = bookmark.url
