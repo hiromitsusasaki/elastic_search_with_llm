@@ -17,7 +17,7 @@ div class="container mx-auto px-4 py-8"
     tbody
       - @bookmarks.each do |bookmark|
         tr
-          td class="border px-4 py-2" = bookmark.title
-          td class="border px-4 py-2" = bookmark.description
-          td class="border px-4 py-2" = bookmark.url
+          td class="border px-4 py-2 break-all" = bookmark.title
+          td class="border px-4 py-2 break-all" = bookmark.description
+          td class="border px-4 py-2 break-all text-sky-500" = link_to bookmark.url, bookmark.url, target: "_blank"
   = paginate @bookmarks
