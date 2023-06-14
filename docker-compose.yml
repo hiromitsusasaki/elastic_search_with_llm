@@ -14,7 +14,7 @@ services:
         hard: -1
     volumes:
     - ./docker/es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - es_sample_data:/usr/share/elasticsearch/data
+      - es_data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
   kibana:
@@ -56,5 +56,5 @@ services:
     stdin_open: true
 
 volumes:
-  es_sample_data:
+  es_data:
     driver: local
