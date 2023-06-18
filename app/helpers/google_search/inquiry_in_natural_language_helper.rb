@@ -1,0 +1,2 @@
+module GoogleSearch::InquiryInNaturalLanguageHelper
+end

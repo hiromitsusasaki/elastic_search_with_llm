@@ -1,0 +1,2 @@
+module Bookmarks::InquiryInNaturalLanguageHelper
+end

@@ -1,0 +1,41 @@
+div class="container mx-auto px-4 py-8"
+  h1 class="text-2xl font-semibold mb-4" 自然言語による問い合わせ（Bookmark DB）
+
+  form action="/bookmarks/inquiry" method="get" class="mb-4"
+    div class="flex items-center"
+      input type="text" name="query" id="query" class="border rounded px-2 py-1 w-full" value=@query
+      button type="submit" class="bg-blue-500 text-white px-4 py-1 rounded ms-1" Inquiry
+
+  - if @query.present?
+    .mt-5
+      p
+        | 問い合わせ:
+      p.mt-3.bg-sky-50.p-3.rounded = @query
+    - if @answer.present?
+      p.mt-5
+        | 回答:
+      .mt-3.bg-sky-50.p-3.rounded
+        = markdown(@answer)
+    - if @bookmarks.present?
+      p.mt-5 = "AIはBookmarkデータベースから下記の関連するブックマークを取得し、そのうち上位2件を参考に回答をしています"
+      p.mt-3
+        | 検索キーワード
+      p.mt-3 = @keywords
+      table class="w-full border table-fixed mt-3"
+        thead
+          tr
+            th class="bg-gray-100 border px-4 py-2" Title
+            th class="bg-gray-100 border px-4 py-2" Description
+            th class="bg-gray-100 border px-4 py-2" URL
+
+        tbody
+          - @bookmarks.each do |bookmark|
+            tr
+              td class="border px-4 py-2 break-all" = bookmark.title
+              td class="border px-4 py-2 break-all" = bookmark.description
+              td class="border px-4 py-2 break-all text-sky-500" = link_to bookmark.url, bookmark.url, target: "_blank"
+    - else
+        p.mt-5 = "AIはBookmarkデータベースから関連するBookmarkを取得できませんでした。"
+        p.mt-3
+          | 検索キーワード:
+        p.mt-3 = @keywords
